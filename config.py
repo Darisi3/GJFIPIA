@@ -1,75 +1,55 @@
 import os
 from dotenv import load_dotenv
+from urllib.parse import quote_plus
 
-# Load environment variables from .env file (nëse ekziston)
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
 class Config:
-    # Application Configuration
-    SECRET_KEY = os.getenv('SECRET_KEY', 'gazeta-generator-secret-key-2025')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
     
-    # Database Configuration - RREGULLIME KRYESORE
-    # VENDOS KËTU TË DHËNAT E SAKTA:
-    DB_SERVER = os.getenv('DB_SERVER', 'DESKTOP-GU4CRQ7')  # \\ eshte backslash i dyfishte per SQL
+    # Database - PostgreSQL për Render (nuk mund të përdorësh SQL Server local)
+    # Render jep DATABASE_URL automatikisht kur krijon PostgreSQL
+    DATABASE_URL = os.getenv('DATABASE_URL')
+    
+    # Nëse nuk ka DATABASE_URL, përdor parametrat individuale
+    DB_USER = os.getenv('DB_USER', 'postgres')
+    DB_PASSWORD = os.getenv('DB_PASSWORD', '')
+    DB_HOST = os.getenv('DB_HOST', 'localhost')
+    DB_PORT = os.getenv('DB_PORT', '5432')
     DB_NAME = os.getenv('DB_NAME', 'ocr_db')
-    DB_USER = os.getenv('DB_USER', 'sa')
-    DB_PASSWORD = os.getenv('DB_PASSWORD', 'Admin123!')  # Ndrysho me password-in tënd të vërtetë!
-    DB_DRIVER = os.getenv('DB_DRIVER', 'ODBC Driver 13 for SQL Server')  # Ose: ODBC Driver 17 for SQL Server
     
-    # Trusted Connection (True = Windows Auth, False = SQL Auth me user/pass)
-    trusted_connection = True
+    # SQLAlchemy URI
+    if DATABASE_URL:
+        # Render e jep këtë si: postgres://user:pass@host/db (duhet converitu në postgresql://)
+        SQLALCHEMY_DATABASE_URI = DATABASE_URL.replace('postgres://', 'postgresql://')
+    else:
+        # Local development
+        SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     
-    # Tesseract Configuration
-    TESSERACT_PATH = os.getenv('TESSERACT_PATH', r'C:\Program Files\Tesseract-OCR\tesseract.exe')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_size': 10,
+        'max_overflow': 20,
+        'pool_pre_ping': True  # Kontrollon lidhjen përpara përdorimit
+    }
     
-    # File Upload Configuration
-    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
+    # Tesseract - Path në Linux (Render/Alpine/Debian)
+    # Në Render duhet të instalosh tesseract në build command
+    TESSERACT_PATH = os.getenv('TESSERACT_PATH', '/usr/bin/tesseract')
+    
+    # Uploads - Në Render duhet të përdorësh persistent disk ose S3
+    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', '/tmp/uploads')
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'pdf'}
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
     
-    # API Configuration
     API_PREFIX = '/api/v1'
     
-    # SQLAlchemy Configuration (nëse e përdor SQLAlchemy)
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # PaddleOCR - Lazy loading sepse është i rëndë
+    ENABLE_PADDLE_OCR = os.getenv('ENABLE_PADDLE_OCR', 'False').lower() == 'true'
     
-    @property
-    def SQLALCHEMY_DATABASE_URI(self):
-        """
-        Connection string për SQLAlchemy ORM.
-        Shembull: mssql+pyodbc://user:pass@SERVER\INSTANCE/db?driver=...
-        """
-        driver_encoded = self.DB_DRIVER.replace(' ', '+')
-        
-        if self.trusted_connection:
-            # Windows Authentication
-            return (f"mssql+pyodbc://{self.DB_SERVER}/{self.DB_NAME}"
-                   f"?driver={driver_encoded}"
-                   f"&Trusted_Connection=yes")
-        else:
-            # SQL Server Authentication (me user/pass)
-            return (f"mssql+pyodbc://{self.DB_USER}:{self.DB_PASSWORD}"
-                   f"@{self.DB_SERVER}/{self.DB_NAME}"
-                   f"?driver={driver_encoded}")
+    # Cache
+    CACHE_TYPE = 'SimpleCache'
+    CACHE_DEFAULT_TIMEOUT = 300
 
-    @property
-    def PYODBC_CONNECTION_STRING(self):
-        """
-        Connection string për pyodbc direkt (përdoret në database/setup_database.py).
-        Kthen stringun e gatshëm për pyodbc.connect().
-        """
-        if self.trusted_connection:
-            return (f"DRIVER={{{self.DB_DRIVER}}};"
-                   f"SERVER={self.DB_SERVER};"
-                   f"DATABASE={self.DB_NAME};"
-                   f"Trusted_Connection=yes;")
-        else:
-            return (f"DRIVER={{{self.DB_DRIVER}}};"
-                   f"SERVER={self.DB_SERVER};"
-                   f"DATABASE={self.DB_NAME};"
-                   f"UID={self.DB_USER};"
-                   f"PWD={self.DB_PASSWORD};")
-
-# Create config instance
 config = Config()
