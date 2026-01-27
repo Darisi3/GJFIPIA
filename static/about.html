@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Rreth Nesh | Gazeta Generator</title>
+    <meta name="description" content="Mëso më shumë rreth ekipit dhe misionit të Gazeta Generator – platforma shqiptare për analizën e mediave." />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="about.css" />
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar" aria-label="Navigacion kryesor">
+    <div class="sidebar-top">
+        <button id="sidebarClose" class="sidebar-close" aria-label="Mbyll sidebar" title="Mbyll">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h2 class="brand">Gazeta <span class="brand-strong">Generator</span></h2>
+    </div>
+
+    <nav class="sidebar-nav" role="navigation" aria-label="Meny">
+        <a href="index.html" class="nav-item">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 10.5L12 4l9 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 21V12h14v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Ballina</span>
+        </a>
+        <a href="index.html#generate" class="nav-item">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 2l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 3l1 1-1 1-1-1 1-1zM19 7l1 1-1 1-1-1 1-1zM3 21l6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Gjenero</span>
+        </a>
+        <a href="about.html" class="nav-item active">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/>
+                    <path d="M12 8h.01" stroke="currentColor" stroke-width="2"/>
+                    <path d="M11 12h1v4h1" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+            </span>
+            <span class="label">Rreth Nesh</span>
+        </a>
+        <a href="index.html#contactSection" class="nav-item">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 16.92V21a1 1 0 0 1-1.11 1A19 19 0 0 1 3 4.11a1 1 0 0 1 1-1h4.09a1 1 0 0 1 1 .75c.12.66.37 1.3.74 1.9a1 1 0 0 1-.24 1L9.32 8.9a15.9 15.9 0 0 0 6.05 6.05l1.27-1.27a1 1 0 0 1 1-.24c.6.37 1.24.62 1.9.74a1 1 0 0 1 .75 1V21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Kontakti</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <button id="darkModeBtn" class="action-btn" aria-pressed="false" title="Ndrysho temën">
+            <span class="theme-icon" id="themeIcon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </span>
+            <span class="theme-text" id="themeText">Dark Mode</span>
+        </button>
+        <button id="sidebarToggle" class="action-btn" aria-label="Më shumë" title="Menu">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+</aside>
+
+<!-- HEADER -->
+<header class="topbar">
+    <div class="topbar-left">
+        <button id="sidebarOpen" class="hamburger" aria-label="Hap menu" title="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="brand-mobile">Gazeta <span>Generator</span></div>
+    </div>
+
+    <nav class="topbar-nav" role="navigation" aria-label="Top navigation">
+        <a href="index.html" class="top-link">Ballina</a>
+        <a href="index.html#generate" class="top-link">Kërkimi Fjalëve</a>
+        <a href="index.html#contactSection" class="top-link">Kontakti</a>
+    </nav>
+
+    <div class="topbar-admin">
+        <img src="admin-icon.png" alt="Admin" class="admin-avatar" onerror="this.style.display='none'">
+        <span class="admin-name">Administrator</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="dropdown-arrow">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </div>
+</header>
+
+<!-- PËRMBAJTJA E ABOUT -->
+<main class="about-page-container">
+
+    <section class="about-hero-section">
+        <div class="container">
+            <h1>Rreth <span class="gradient-text">Gazeta Generator</span></h1>
+            <p class="hero-subtitle">Platforma më e avancuar shqiptare për analizën automatike të mediave dhe gjenerimin e grafikëve profesionalë me një klikim.</p>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22Z"/>
+                        <path d="M12 2v8"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <h2>Misioni ynë</h2>
+                <p>Ne besojmë se informacioni duhet të jetë transparent dhe i kuptueshëm për të gjithë. Gazeta Generator u lind për t’i dhënë çdo gazetari, aktivisti dhe qytetari mundësinë të shohë menjëherë se çfarë po dominojnë mediat shqiptare – pa pasur nevojë për mjete të komplikuara apo njohuri programimi.</p>
+                <p>Duke përdorur inteligjencën artificiale, platforma jonë lexon artikujt në kohë reale, identifikon temat kryesore dhe i shndërron ato në imazhe të bukura, të gatshme për rrjete sociale ose raportime.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EKIPI ME INICIALE + GRADIENT + EMOJI ROLI -->
+    <section class="team-section">
+        <div class="container">
+            <h2>Ekipi prapa projektit</h2>
+            <div class="team-grid">
+
+                <div class="team-card">
+                    <div class="avatar-placeholder" style="background: linear-gradient(135deg, #0A2540, #1B6ED6);"><span>DA</span></div>
+                    <h3>Daris Abdyli <small>AI Engineer</small></h3>
+                    <p>Zhvillues & AI Engineer</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="avatar-placeholder" style="background: linear-gradient(135deg, #730f11, #bf7172);"><span>AH</span></div>
+                    <h3>Artiola Hajdari <small>Data Engineer</small></h3>
+                    <p>Data Engineer</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="avatar-placeholder" style="background: linear-gradient(135deg, #10B981, #34D399);"><span>EI</span></div>
+                    <h3>Eron Ismajli <small>Developer</small></h3>
+                    <p>Zhvillues Frontend</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="avatar-placeholder" style="background: linear-gradient(135deg, #F59E0B, #FBBF24);"><span>BH</span></div>
+                    <h3>Bleondë Halimi <small>Analyst</small></h3>
+                    <p>Data Analyst</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="avatar-placeholder" style="background: linear-gradient(135deg, #8B5CF6, #A78BFA);"><span>EZ</span></div>
+                    <h3>Eriolë Zeqiri <small>Manager</small></h3>
+                    <p>Project Manager</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="avatar-placeholder" style="background: linear-gradient(135deg, #EC4899, #F472B6);"><span>ML</span></div>
+                    <h3>Malona Leka <small>Writer</small></h3>
+                    <p>Content & Testing</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER I NJËJTË SI NË INDEX -->
+<footer id="contactSection" class="site-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="footer-logo">Gazeta <span>Generator</span></h4>
+                    <p>Platforma më e avancuar për analizën automatike të mediave shqiptare dhe gjenerimin e grafikëve profesionalë për rrjete sociale.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Linqe të Shpejtë</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ballina</a></li>
+                        <li><a href="index.html#generate">Gjenero Grafikë</a></li>
+                        <li><a href="about.html">Rreth Nesh</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Dokumente Ligjore</h5>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Politika e Privatësisë</a></li>
+                        <li><a href="terms.html">Kushtet e Përdorimit</a></li>
+                        <li><a href="cookies.html">Politika e Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Kontakti</h5>
+                    <p>
+                        <strong>Email:</strong> <a href="mailto:info@gazetagenerator.ks">info@gazetagenerator.ks</a><br>
+                        <strong>Telefon:</strong> <a href="tel:+383 45 100 100">+383 45 100 100</a><br>
+                        <strong>Adresa:</strong> Gjilan, Kosovë
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook" class="social-icon">FB</a>
+                        <a href="#" aria-label="Instagram" class="social-icon">IG</a>
+                        <a href="#" aria-label="LinkedIn" class="social-icon">LN</a>
+                        <a href="#" aria-label="X" class="social-icon">X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>© 2025 Gazeta Generator. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

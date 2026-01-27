@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kyçja si Administrator | Gazeta Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .login-container {
+            margin-left: 220px;
+            min-height: calc(100vh - 140px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            transition: margin-left .28s ease;
+        }
+        .login-card {
+            background: var(--card);
+            padding: 48px 40px;
+            border-radius: 20px;
+            box-shadow: var(--soft-shadow);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .login-card h1 {font-size: 28px; margin-bottom: 8px;}
+        .login-card p {color: var(--muted); margin-bottom: 32px; font-size: 15px;}
+        .login-form label {display: block; text-align: left; margin: 20px 0 8px; font-weight: 600;}
+        .login-form input {
+            width: 100%; padding: 14px 16px; border-radius: 12px;
+            border: 1px solid rgba(10,37,64,0.1); background: transparent;
+            font-size: 15px; color: var(--text);
+        }
+        .login-form input:focus {
+            outline: none; border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(10,37,64,0.08);
+        }
+        .login-btn {
+            margin-top: 28px; width: 100%; padding: 14px;
+            background: linear-gradient(135deg, var(--accent), #1B6ED6);
+            color: white; border: none; border-radius: 12px;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            transition: all .2s ease;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(10,37,64,0.15);
+        }
+        .login-footer {margin-top: 24px; font-size: 13.5px; color: var(--muted);}
+        .login-footer a {color: var(--accent); text-decoration: none;}
+        .login-footer a:hover {text-decoration: underline;}
+
+        @media (max-width: 980px) {
+            .login-container { margin-left: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR – TANI ME DARK MODE TË PLOTË SI NË BALLINË -->
+<aside class="sidebar" id="sidebar" aria-label="Navigacion kryesor">
+    <div class="sidebar-top">
+        <button id="sidebarClose" class="sidebar-close" aria-label="Mbyll sidebar" title="Mbyll">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h2 class="brand">Gazeta <span class="brand-strong">Generator</span></h2>
+    </div>
+
+    <nav class="sidebar-nav" role="navigation" aria-label="Meny">
+        <a href="index.html" class="nav-item">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 10.5L12 4l9 6.5" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M5 21V12h14v9" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </span>
+            <span class="label">Kthehu në Ballinë</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <!-- DARK MODE BUTTON IDENTIK SI NË INDEX.HTML -->
+        <button id="darkModeBtn" class="action-btn" aria-pressed="false" title="Ndrysho temën">
+            <span class="theme-icon" id="themeIcon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </span>
+            <span class="theme-text" id="themeText">Dark Mode</span>
+        </button>
+
+        <button id="sidebarToggle" class="action-btn" aria-label="Më shumë" title="Menu">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+    <div class="topbar-left">
+        <button id="sidebarOpen" class="hamburger" aria-label="Hap menu" title="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="brand-mobile">Gazeta <span>Generator</span></div>
+    </div>
+
+    <a href="admin.html" class="topbar-admin">
+        <img src="admin-icon.png" alt="Admin" class="admin-avatar" onerror="this.style.display='none'">
+        <span class="admin-name">Administrator</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="dropdown-arrow">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </a>
+</header>
+
+<!-- FORMA E LOGIN-IT -->
+<main class="login-container">
+    <div class="login-card">
+        <h1>Kyçja si Administrator</h1>
+        <p>Plotësoni kredencialet për të vazhduar në platformë</p>
+
+        <form class="login-form" action="index.html" method="GET">
+            <label for="username">Emri i përdoruesit</label>
+            <input type="text" id="username" name="username" placeholder="admin" required />
+
+            <label for="password">Fjalëkalimi</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required />
+
+            <button type="submit" class="login-btn">Kyçu</button>
+        </form>
+
+        <div class="login-footer">
+            Keni harruar fjalëkalimin? <a href="#">Riktheje këtu</a>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER IDENTIK SI NË BALLINË -->
+<footer id="contactSection" class="site-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="footer-logo">Gazeta <span>Generator</span></h4>
+                    <p>Platforma më e avancuar për analizën automatike të mediave shqiptare dhe gjenerimin e grafikëve profesionalë për rrjete sociale.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Linqe të Shpejtë</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ballina</a></li>
+                        <li><a href="#generate">Gjenero Grafikë</a></li>
+                        <li><a href="about.html">Rreth Nesh</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Dokumente Ligjore</h5>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Politika e Privatësisë</a></li>
+                        <li><a href="terms.html">Kushtet e Përdorimit</a></li>
+                        <li><a href="cookies.html">Politika e Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Kontakti</h5>
+                    <p>
+                        <strong>Email:</strong> <a href="mailto:info@gazetagenerator.ks">info@gazetagenerator.ks</a><br>
+                        <strong>Telefon:</strong> <a href="tel:+38345100100">+383 45 100 100</a><br>
+                        <strong>Adresa:</strong> Gjilan, Kosovë
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook" class="social-icon">FB</a>
+                        <a href="#" aria-label="Instagram" class="social-icon">IG</a>
+                        <a href="#" aria-label="LinkedIn" class="social-icon">LN</a>
+                        <a href="#" aria-label="X (Twitter)" class="social-icon">X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>© 2025 Gazeta Generator. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPT-I PËR DARK MODE (nëse e ke në script.js, lëre aty. Nëse jo, shto këtë poshtë) -->
+<script src="script.js"></script>
+
+<!-- Nëse nuk ke ende script.js për dark mode, shtyp këtë poshtë <script src="script.js"> -->
+<script>
+    // Dark Mode – 100% i njëjtë si në ballinë
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const body = document.body;
+
+    // Kontrollo nëse është ruajtur preferenca
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeBtn.setAttribute('aria-pressed', 'true');
+        themeText.textContent = 'Light Mode';
+        themeIcon.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>`;
+    }
+
+    darkModeBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        
+        darkModeBtn.setAttribute('aria-pressed', isDark);
+        themeText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+
+        // Ndrysho ikonën
+        if (isDark) {
+            themeIcon.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>`;
+        } else {
+            themeIcon.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2"/>
+            </svg>`;
+        }
+    });
+</script>
+
+</body>
+</html>

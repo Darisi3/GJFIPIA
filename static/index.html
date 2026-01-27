@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gazeta Generator</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar" aria-label="Navigacion kryesor">
+    <div class="sidebar-top">
+        <button id="sidebarClose" class="sidebar-close" aria-label="Mbyll sidebar" title="Mbyll">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h2 class="brand">Gazeta <span class="brand-strong">Generator</span></h2>
+    </div>
+
+    <nav class="sidebar-nav" role="navigation" aria-label="Meny">
+        <a href="#" class="nav-item active" data-link="home">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 10.5L12 4l9 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 21V12h14v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Ballina</span>
+        </a>
+
+        <a href="#generate" class="nav-item" data-link="generate">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 2l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 3l1 1-1 1-1-1 1-1zM19 7l1 1-1 1-1-1 1-1zM3 21l6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Gjenero</span>
+        </a>
+
+        <a href="about.html" class="nav-item">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 12v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Rreth Nesh</span>
+        </a>
+
+        <a href="#contactSection" class="nav-item" id="contactLink">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 16.92V21a1 1 0 0 1-1.11 1A19 19 0 0 1 3 4.11 1 1 0 0 1 4 3h4.09a1 1 0 0 1 1 .75c.12.66.37 1.3.74 1.9a1 1 0 0 1-.24 1l-1.27 1.27a16 16 0 0 0 6.05 6.05l1.27-1.27a1 1 0 0 1 1-.24c.6.37 1.24.62 1.9.74a1 1 0 0 1 .75 1V21z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="label">Kontakti</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <button id="darkModeBtn" class="action-btn" aria-pressed="false" title="Ndrysho temën">
+            <span class="theme-icon" id="themeIcon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </span>
+            <span class="theme-text" id="themeText">Dark Mode</span>
+        </button>
+
+        <button id="sidebarToggle" class="action-btn" aria-label="Më shumë" title="Menu">
+            <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+</aside>
+
+<!-- HEADER -->
+<header class="topbar">
+    <div class="topbar-left">
+        <button id="sidebarOpen" class="hamburger" aria-label="Hap menu" title="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="brand-mobile">Gazeta <span>Generator</span></div>
+    </div>
+
+    <nav class="topbar-nav" role="navigation" aria-label="Top navigation">
+        <a href="#" class="top-link">Ballina</a>
+        <a href="#generate" class="top-link">Kërkimi Fjalëve</a>
+        <a href="#contactSection" class="top-link" id="contactLink2">Kontakti</a>
+    </nav>
+
+    <!-- ADMINISTRATORI – KLIKON → TË ÇON NË admin.html -->
+    <a href="login.html" class="topbar-admin" aria-label="Shko te Paneli i Administratorit">
+        <img src="admin-icon.png" alt="Admin" class="admin-avatar" onerror="this.style.display='none'">
+        <span class="admin-name">Administrator</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="dropdown-arrow" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </a>
+</header>
+
+<!-- MAIN -->
+<main class="main" id="mainContent">
+    <section class="form-section fade-section" id="generate" aria-labelledby="generateTitle">
+        <h3 id="generateTitle">Gjenero Imazhin e Gazetës</h3>
+
+        <label for="urlInput">Shtyp URL të Gazetës</label>
+        <input id="urlInput" type="text" placeholder="Vendos URL të imazhit të gazetës..." aria-label="URL imazhi">
+
+        <label for="keywordInput">Fjala që dëshironi të kërkoni</label>
+        <input id="keywordInput" type="text" placeholder="Vendos fjalën..." aria-label="Fjala për gjenerim">
+
+        <button id="generateBtn" class="primary-btn">Kërko dhe Shfaq</button>
+    </section>
+
+    <section class="result-section fade-section" aria-live="polite">
+        <h3>Rezultati</h3>
+        <!-- Rezultatet e kërkimit (screenshots) -->
+        <div id="searchResults" class="search-results"></div>
+        <div class="loader" id="loader" role="status" aria-hidden="true"></div>
+
+        <div class="result-box" aria-hidden="false">
+            <img id="resultImage" src="" alt="Imazhi i gjeneruar" />
+            <div id="noImageText" class="placeholder">IMG</div>
+        </div>
+
+        <button id="downloadBtn" class="download-btn" style="display:none;">Shkarko Imazhin</button>
+
+        <div id="searchResults" class="search-results"></div>
+    </section>
+</main>
+
+<!-- HISTORY ME BUTON "PASTRO HISTORIKUN" -->
+<!-- HISTORY – VERSIONI I FUNDIT QË NUK RIKTHEHET MË KURRË -->
+<aside class="history fade-section" aria-label="Historiku i gjenerimeve">
+    <div class="history-header">
+        <h4>Gjenerimet e Fundit</h4>
+        <button id="clearHistoryBtn" class="clear-history-btn" title="Pastro të gjitha gjenerimet">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-8 0h10M8 11v8m4-8v8m4-8v8"/>
+            </svg>
+            Pastro Historikun
+        </button>
+    </div>
+    <div id="historyList" class="history-list" aria-live="polite"></div>
+</aside>
+
+<!-- FOOTER -->
+<footer id="contactSection" class="site-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="footer-logo">Gazeta <span>Generator</span></h4>
+                    <p>Platforma më e avancuar për analizën automatike të mediave shqiptare dhe gjenerimin e grafikëve profesionalë për rrjete sociale.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Linqe të Shpejtë</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Ballina</a></li>
+                        <li><a href="#generate">Gjenero Grafikë</a></li>
+                        <li><a href="about.html">Rreth Nesh</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Dokumente Ligjore</h5>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Politika e Privatësisë</a></li>
+                        <li><a href="terms.html">Kushtet e Përdorimit</a></li>
+                        <li><a href="cookies.html">Politika e Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Kontakti</h5>
+                    <p>
+                        <strong>Email:</strong> <a href="mailto:info@gazetagenerator.ks">info@gazetagenerator.ks</a><br>
+                        <strong>Telefon:</strong> <a href="tel:+38345100100">+383 45 100 100</a><br>
+                        <strong>Adresa:</strong> Gjilan, Kosovë
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook" class="social-icon">FB</a>
+                        <a href="#" aria-label="Instagram" class="social-icon">IG</a>
+                        <a href="#" aria-label="LinkedIn" class="social-icon">LN</a>
+                        <a href="#" aria-label="X (Twitter)" class="social-icon">X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>© 2025 Gazeta Generator. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

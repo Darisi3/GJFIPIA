@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Regjistrim | Gazeta Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .login-container{margin-left:220px;min-height:calc(100vh-160px);display:flex;align-items:center;justify-content:center;padding:40px 20px;transition:margin-left .28s ease}
+        .login-card{background:var(--card);padding:50px 40px;border-radius:20px;box-shadow:var(--soft-shadow);max-width:420px;width:100%;text-align:center}
+        .form-group{margin-bottom:20px;text-align:left}
+        .form-group label{display:block;margin-bottom:8px;font-weight:600}
+        .form-group input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(10,37,64,0.1);background:transparent;font-size:15px}
+        .form-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(10,37,64,0.08)}
+        .btn-primary{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent),#1B6ED6);color:white;font-weight:700;cursor:pointer;transition:all .2s}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(10,37,64,0.15)}
+        .login-footer{margin-top:24px;font-size:14px;color:var(--muted)}
+        .login-footer a{color:var(--accent);text-decoration:none}
+        .login-footer a:hover{text-decoration:underline}
+        @media (max-width:980px){.login-container{margin-left:0}}
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar"> <!-- e njëjta si në login.html --> ... </aside>
+
+<header class="topbar">
+    <div class="topbar-left">
+        <button id="sidebarOpen" class="hamburger">Menu</button>
+        <div class="brand-mobile">Gazeta <span>Generator</span></div>
+    </div>
+    <a href="login.html" class="top-link">Kyçu</a>
+</header>
+
+<main class="login-container">
+    <div class="login-card">
+        <h1>Krijo llogari të re</h1>
+        <p>Regjistrohu falas dhe fillo menjëherë</p>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Emri dhe mbiemri</label>
+                <input type="text" id="name" required placeholder="Arben Hoxha">
+            </div>
+            <div class="form-group">
+                <label for="reg_email">Email</label>
+                <input type="email" id="reg_email" required placeholder="email@juaj.com">
+            </div>
+            <div class="form-group">
+                <label for="reg_password">Fjalëkalimi</label>
+                <input type="password" id="reg_password" required minlength="6" placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-primary">Regjistrohu</button>
+        </form>
+        <div class="login-footer">
+            Ke llogari? <a href="login.html">Kyçu këtu</a>
+        </div>
+    </div>
+</main>
+
+<footer id="contactSection" class="site-footer"> <!-- e njëjta si më sipër --> ... </footer>
+
+<script src="script.js"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('reg_email').value.trim();
+        localStorage.setItem('is_logged_in', 'true');
+        localStorage.setItem('user_name', name);
+        localStorage.setItem('user_email', email);
+        window.location.href = 'index.html';
+    });
+</script>
+</body>
+</html>
