@@ -1,31 +1,24 @@
-# Web Framework
 Flask==3.0.0
 Flask-Cors==4.0.0
 Flask-SQLAlchemy==3.1.1
 Flask-Migrate==4.1.0
 gunicorn==23.0.0
 
-# Database (PostgreSQL për Render)
-psycopg2-binary==2.9.9
-SQLAlchemy==2.0.45
-alembic==1.13.1
+# Database (SQLite - s'ka nevojë për psycopg2/pyodbc)
+# Vetëm SQLAlchemy mjafton
 
-# OCR & Image Processing (Të rënda - ngarko vetëm nëse i nevojiten)
-# paddlepaddle==2.6.2      # HIQE nëse nuk ke hapësirë të mjaftueshme
-# paddleocr==2.7.3         # HIQE nëse nuk ke hapësirë të mjaftueshme
+# OCR & AI (Të rënda!)
+paddlepaddle==2.6.2
+paddleocr==2.7.3
 pytesseract==0.3.10
 Pillow==10.1.0
-opencv-python-headless==4.8.1.78  # Headless për server (pa GUI)
 numpy==1.26.4
+opencv-python-headless==4.6.0.66  # Version i vjetër për kompatibilitet me Paddle
 
 # Utilities
 python-dotenv==1.0.0
 requests==2.31.0
-beautifulsoup4==4.12.2
-PyMuPDF==1.24.9
-python-docx==1.1.0
-openpyxl==3.1.5
-
-# Security
+PyMuPDF==1.26.7
+python-docx==1.2.0
 PyJWT==2.8.0
-bcrypt==4.1.2
+pdf2docx==0.5.8
