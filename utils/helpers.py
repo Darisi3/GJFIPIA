@@ -1,56 +1,92 @@
 import os
 import uuid
-from PIL import Image as PILImage
-from datetime import datetime
-from config import config
+import re
+from werkzeug.utils import secure_filename
+from PIL import Image  # Shtuar për get_image_dimensions
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'tiff', 'bmp'}
 
 def allowed_file(filename):
-    """Check if file extension is allowed"""
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
+    """Kontrollon nëse ekstenzioni i file-it është i lejuar"""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def generate_unique_filename(filename):
-    """Generate unique filename to avoid collisions"""
-    ext = filename.rsplit('.', 1)[1].lower()
-    unique_id = uuid.uuid4().hex[:8]
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    return f"{timestamp}_{unique_id}.{ext}"
-
-def save_uploaded_file(file):
-    """Save uploaded file to server"""
-    if not file or not allowed_file(file.filename):
+def save_uploaded_file(file, upload_folder='uploads'):
+    """
+    Ruaj një file të ngarkuar dhe kthe path-in e tij
+    
+    Args:
+        file: File object nga request.files
+        upload_folder: Folderi ku do ruhet file (default: 'uploads')
+    
+    Returns:
+        str: Path i plotë i file-it të ruajtur, ose None nëse dështon
+    """
+    if not file or file.filename == '':
         return None
     
-    filename = generate_unique_filename(file.filename)
-    file_path = os.path.join(config.UPLOAD_FOLDER, filename)
-    
-    try:
-        file.save(file_path)
-        return filename, file_path
-    except Exception as e:
-        print(f"Error saving file: {e}")
+    if not allowed_file(file.filename):
         return None
+    
+    # Krijo folderin uploads nëse nuk ekziston
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+    
+    # Krijo emër unik për file (për të evituar përplasjet)
+    ext = file.filename.rsplit('.', 1)[1].lower()
+    unique_filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
+    filepath = os.path.join(upload_folder, unique_filename)
+    
+    # Ruaj file
+    file.save(filepath)
+    return filepath
 
-def get_image_dimensions(file_path):
-    """Get image dimensions"""
-    try:
-        with PILImage.open(file_path) as img:
-            return img.size  # (width, height)
-    except Exception as e:
-        print(f"Error getting image dimensions: {e}")
-        return (0, 0)
+def generate_unique_id():
+    """Gjeneron një ID unik"""
+    return str(uuid.uuid4())
+
+def format_datetime(dt):
+    """Formaton datën për shfaqje"""
+    if dt:
+        return dt.strftime('%d/%m/%Y %H:%M')
+    return ''
 
 def clean_text(text):
-    """Clean OCR extracted text"""
+    """
+    Pastron tekstin nga karaktere të panevojshme dhe whitespace.
+    
+    Args:
+        text (str): Teksti për të pastruar
+        
+    Returns:
+        str: Teksti i pastruar
+    """
     if not text:
         return ""
     
-    # Remove extra whitespace
-    text = ' '.join(text.split())
+    # Heq whitespace të tepërt
+    text = re.sub(r'\s+', ' ', text)
     
-    # Remove non-printable characters but keep Albanian characters
-    import string
-    printable = set(string.printable + 'çëëËÇ')
-    text = ''.join(filter(lambda x: x in printable, text))
+    # Heq newline të tepërt
+    text = text.replace('\n\n\n', '\n\n').strip()
     
-    return text.strip()
+    # Heq karaktere të kontrollit (jo-printable)
+    text = ''.join(char for char in text if char.isprintable() or char in '\n\r\t')
+    
+    return text
+
+def get_image_dimensions(image_path):
+    """
+    Kthen dimensionet e një image (width, height).
+    
+    Args:
+        image_path (str): Path i file-it të imazhit
+        
+    Returns:
+        tuple: (width, height) ose (None, None) nëse dështon
+    """
+    try:
+        with Image.open(image_path) as img:
+            return img.size  # Kthen (width, height)
+    except Exception as e:
+        print(f"Error reading image dimensions: {e}")
+        return (None, None)
